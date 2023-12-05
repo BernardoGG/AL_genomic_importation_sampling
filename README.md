@@ -11,7 +11,7 @@ Mengyan Zhang<sup>1</sup>, Bernardo Gutierrez<sup>2,3</sup>, Rhys P.D. Inward<su
 ## Repository structure and general notes
 The structure of this repository is shown below.  
 
-Currently, the main folder of the reposiutory contains a data set for a simulated epidemic in two separate locations, with direct flow of patients from the 'source location' (also called Deme 1) to the location of interest where we are performing the analysis (also called Deme 2). Details about the simulation are available in this [`GitHub repository`](https://github.com/rhysinward/sampling_phylodyanmics/tree/main). 
+Currently, the main folder of the repository contains a data set for a simulated epidemic in two separate locations, with direct flow of patients from the 'source location' (also called Deme 1) to the location of interest where we are performing the analysis (also called Deme 2). Details about the simulation are available in this [`GitHub repository`](https://github.com/rhysinward/sampling_phylodyanmics/tree/main). 
 
 ```
 AL_genomic_importation_sampling/
@@ -39,6 +39,12 @@ The files required to run this operation are not on the repository main folder. 
 
 ```bash
 cd epidemic_simulation_data
+```
+
+The user may need to perform an additional operation to download the large file which contains the simulated genetic sequences. To do this, mmak sure you have the latest version of [`GitHub LFS`](https://github.com/git-lfs/git-lfs) installed and type:
+
+```bash
+git lfs pull
 ```
 
 ### 3. Grant permission to execute the script that generates the pairwise genetic distances.
