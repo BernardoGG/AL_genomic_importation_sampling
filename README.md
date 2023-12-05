@@ -58,7 +58,7 @@ The heuristic is based on various features attached to individual genome sequenc
 This can be done by navigating in the terminal to the local folder where you want to clone the repository and typing:
 
 <pre>
-\```bash
+\```
 git clone git@github.com:BernardoGG/AL_genomic_importation_sampling.git
 \```
 </pre>
