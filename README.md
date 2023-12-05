@@ -32,7 +32,7 @@ This can be done by navigating in the terminal to the local folder where you wan
 git clone git@github.com:BernardoGG/AL_genomic_importation_sampling.git
 ```
 
-Please note you will need a valid GitHub account and an active SSH key (more information about GitHub authentication via SSH here).
+Please note you will need a valid GitHub account and an active SSH key (more information about GitHub authentication via SSH [`here`](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh)).
 
 ### 2. Navigate to the [`epidemic_simulation_data`](epidemic_simulation_data/) folder.
 The files required to run this operation are not on the repository main folder. Type in the terminal:
