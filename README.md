@@ -19,7 +19,6 @@ AL_genomic_importation_sampling/
 │   ├── genetic_distance_estimator.R
 │   └── get_me_distances.sh
 └── README.md
-
 ```
 
 ## Generation of pairwise genetic distance matrices from simulated genome sequences
@@ -28,44 +27,32 @@ The heuristic is based on various features attached to individual genome sequenc
 ### 1. Clone the GitHub repository in your local machine.
 This can be done by navigating in the terminal to the local folder where you want to clone the repository and typing:
 
-<pre>
-\```
 
+```bash
 git clone git@github.com:BernardoGG/AL_genomic_importation_sampling.git
-
-\```
-</pre>
+```
 
 Please note you will need a valid GitHub account and an active SSH key (more information about GitHub authentication via SSH here).
 
 ### 2. Navigate to the [`epidemic_simulation_data`](epidemic_simulation_data/) folder.
-Note that the files required to run this operation are not on the repository main folder. Please type in the terminal:
+The files required to run this operation are not on the repository main folder. Type in the terminal:
 
-<pre>
-\```bash
+```bash
 cd epidemic_simulation_data
-\```
-</pre>
+```
 
 ### 3. Grant permission to execute the script that generates the pairwise genetic distances.
 This operation is run from a bash script which provides a control step and executes an R script within the same directory. To run the bash script, provide permission to execute by typing:
 
-<pre>
-\```bash
+```bash
 chmod +x get_me_genetic_distances.sh
-\```
-</pre>
+```
 
 ### 4. Execute the bash script that generates the matrices.
 You can run the scripts by typing
 
-<pre>
-\```bash
+```bash
 sh get_me_genetic_distances.sh
-\```
-</pre>
+```
 
 This will prompt an interactive warning on your terminal stating that the operation may take a few hours to run, and will require you to ackowledge this (i.e., type 'y' or 'yes') to proceed. The script will then activate the accompanying genetic_distance_estimator.R file which produces the pairwise genetic distance matrices and saves them in RData format.
-
-
-```
