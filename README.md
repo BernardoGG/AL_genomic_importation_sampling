@@ -59,7 +59,9 @@ This can be done by navigating in the terminal to the local folder where you wan
 
 <pre>
 \```
+
 git clone git@github.com:BernardoGG/AL_genomic_importation_sampling.git
+
 \```
 </pre>
 
