@@ -14,39 +14,10 @@ The structure of this repository is shown below.
 Currently, the main folder of the reposiutory contains a data set for a simulated epidemic in two separate locations, with direct flow of patients from the 'source location' (also called Deme 1) to the location of interest where we are performing the analysis (also called Deme 2). Details about the simulation are available in this GitHub repository. 
 
 ```
-global_influenza_project/
-├── data_part
-│   ├── air_traffic_data
-│   ├── epi_data
-│   └── map_data
-├── genomic_part
-│   ├── phylogenetic_analyses
-│   ├── phylogeographic_analyses
-│   │   ├── step1
-│   │   └── step2
-│   ├── post-analyses
-│   │   ├── glm_log_file
-│   │   ├── trunk
-│   │   ├── jump_history
-│   │   ├── persistence
-│   │   ├── mcc_tree
-│   │   ├── diversity
-│   │   ├── pop_size
-│   │   ├── lineage_turnover_by
-│   │   └── nature_selection
-│   └── acknowledge_table
-├── model_part
-│   ├── bayesian_model.py
-│   ├── regression_plots
-│   └── forest_plots
-├── figure_scripts
-│   ├── Fig1.r
-│   ├── Fig2.r
-│   ├── Fig3.r
-│   ├── Fig4.r
-│   ├── Fig5.r
-│   ├── Fig6.r
-│   └── output
+AL_genomic_importation_sampling/
+├── epidemic_simulation_data
+│   ├── genetic_distance_estimator.R
+│   └── get_me_distances.sh
 └── README.md
 
 ```
