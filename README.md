@@ -11,7 +11,7 @@ Mengyan Zhang<sup>1</sup>, Bernardo Gutierrez<sup>2,3</sup>, Rhys P.D. Inward<su
 ## Repository structure and general notes
 The structure of this repository is shown below.  
 
-Currently, the main folder of the reposiutory contains a data set for a simulated epidemic in two separate locations, with direct flow of patients from the 'source location' (also called Deme 1) to the location of interest where we are performing the analysis (also called Deme 2). Details about the simulation are available in this GitHub repository. 
+Currently, the main folder of the reposiutory contains a data set for a simulated epidemic in two separate locations, with direct flow of patients from the 'source location' (also called Deme 1) to the location of interest where we are performing the analysis (also called Deme 2). Details about the simulation are available in this [`GitHub repository`](https://github.com/rhysinward/sampling_phylodyanmics/tree/main). 
 
 ```
 AL_genomic_importation_sampling/
