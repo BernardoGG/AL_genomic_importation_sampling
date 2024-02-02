@@ -106,6 +106,6 @@ meta_domestic_pool <- meta_seqs |>
 
 ### Save data frames for sampling pool and domestic sequence pool
 write.csv(meta_sampling_pool, "epidemic_simulation_data/sampling_pool.csv",
-          row.names = FALSE)
+          row.names = FALSE, quote = FALSE)
 write.csv(meta_domestic_pool, "epidemic_simulation_data/domestic_pool.csv",
-          row.names = FALSE)
+          row.names = FALSE, quote = FALSE)
