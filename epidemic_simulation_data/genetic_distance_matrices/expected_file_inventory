@@ -1,0 +1,4 @@
+Expected filed in this repository after running the get_me_genetic_distances.sh file:
+- genetic_distance_matrix_dnabin.RData
+- genetic_distance_matrix.RData
+- genetic_distance_matrix_longform.RData
