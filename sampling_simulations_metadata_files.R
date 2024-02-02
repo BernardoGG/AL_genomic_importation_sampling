@@ -57,7 +57,8 @@ source_cases <- meta_all |>
                         by = "week")), by = "epiweek_start") |>
   as.data.frame() |>
   arrange(epiweek_start) |>
-  mutate(epiweek_end = epiweek_start + 6)
+  mutate(epiweek_end = epiweek_start + 6) |>
+  mutate(new_cases = ifelse(is.na(new_cases), 0, new_cases))
 
 # Add a column to sampling pool data set specifying 'incidence' at collection
 # time; in this case, raw new cases
@@ -65,8 +66,7 @@ meta_sampling_pool <- meta_sampling_pool |>
   fuzzy_left_join(source_cases, by = c("date" = "epiweek_start",
                                        "date" = "epiweek_end"),
                   match_fun = list(`>=`, `<=`)) |>
-  select(-epiweek_start, -epiweek_end) |>
-  mutate(new_cases = ifelse(is.na(new_cases), 0, new_cases))
+  select(-epiweek_start, -epiweek_end)
 
 # Add a column specifying migration rate; following simulation parameters, the 
 # rate is 0 during the first 30 days and then rises to a constant rate of 0.01
@@ -109,3 +109,13 @@ write.csv(meta_sampling_pool, "epidemic_simulation_data/sampling_pool.csv",
           row.names = FALSE, quote = FALSE)
 write.csv(meta_domestic_pool, "epidemic_simulation_data/domestic_pool.csv",
           row.names = FALSE, quote = FALSE)
+
+### Save data frames for epidemic trends at source location
+left_join(source_cases |> select(-epiweek_end),
+          source_seqs |> select(-epiweek_end),
+          by = "epiweek_start") |>
+  mutate(sequencing_intensity = sequences / new_cases) |>
+  mutate(sequencing_intensity = ifelse(is.na(sequencing_intensity),
+                                       0, sequencing_intensity)) |>
+  write.csv("epidemic_simulation_data/source_epi_trends.csv",
+            row.names = FALSE, quote = FALSE)
