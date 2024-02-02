@@ -12,8 +12,8 @@ suppressMessages(
 )
 
 # Step 2. Find files with genetic sequences and metadata
-fasta <- "simulated_epidemic_seqint_0.1_sequences.fasta"
-meta_full <- "cleaned_metadata_full_set.txt"
+fasta <- "epidemic_simulation_data/simulated_epidemic_seqint_0.1_sequences.fasta"
+meta_full <- "epidemic_simulation_data/cleaned_metadata_full_set.txt"
 
 # Step 3. Import genetic sequences
 gendist_seqs <- read.FASTA(fasta, type = "DNA")
@@ -49,6 +49,9 @@ gdist_seqs_dm_long <- melt(as.matrix(gdist_seqs), varnames = c("seq_1", "seq_2")
   rename("dist" = "value")
 
 # Step 8. Write genetic distance RData objects
-save(gendist_seqs, file = "genetic_distance_matrix_dnabin.RData")
-save(gdist_seqs_dm, file = "genetic_distance_matrix.RData")
-save(gdist_seqs_dm_long, file = "genetic_distance_matrix_longform.RData")
+save(gendist_seqs, file =
+       "epidemic_simulation_data/genetic_distance_matrices/genetic_distance_matrix_dnabin.RData")
+save(gdist_seqs_dm, file =
+       "epidemic_simulation_data/genetic_distance_matrices/genetic_distance_matrix.RData")
+save(gdist_seqs_dm_long, file =
+       "epidemic_simulation_data/genetic_distance_matrices/genetic_distance_matrix_longform.RData")

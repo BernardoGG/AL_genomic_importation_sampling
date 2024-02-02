@@ -41,7 +41,7 @@ The files required to run this operation are not on the repository main folder. 
 cd epidemic_simulation_data
 ```
 
-The user may need to perform an additional operation to download the large file which contains the simulated genetic sequences. To do this, mmak sure you have the latest version of [`GitHub LFS`](https://github.com/git-lfs/git-lfs) installed and type:
+The user may need to perform an additional operation to download the large file which contains the simulated genetic sequences. To do this, make sure you have the latest version of [`GitHub LFS`](https://github.com/git-lfs/git-lfs) installed and type:
 
 ```bash
 git lfs pull
@@ -61,4 +61,4 @@ You can run the scripts by typing
 sh get_me_genetic_distances.sh
 ```
 
-This will prompt an interactive warning on your terminal stating that the operation may take a few hours to run, and will require you to ackowledge this (i.e., type 'y' or 'yes') to proceed. The script will then activate the accompanying genetic_distance_estimator.R file which produces the pairwise genetic distance matrices and saves them in RData format.
+This will prompt an interactive warning on your terminal stating that the operation may take a few hours to run, and will require you to ackowledge this (i.e., type 'y' or 'yes') to proceed. The script will then activate the accompanying genetic_distance_estimator.R file which produces the pairwise genetic distance matrices and saves them in RData format in the [`genetic_distance_matrices`](epidemic_simulation_data/genetic_distance_matrices) folder (which remains empty in this repository).
