@@ -41,10 +41,14 @@ meta_seqs <- meta_all |> filter(id %in% names(gendist_seqs))
 # Operation might take a few hours
 gdist_seqs <- dist.dna(gendist_seqs)
 
-# Step 6. Reformat matrix into data frame format
-gdist_seqs_dm <- melt(as.matrix(gdist_seqs), varnames = c("seq_1", "seq_2")) |>
+# Step 6. Reformat as matrix object
+gdist_seqs_dm <- as.matrix(gdist_seqs)
+
+# Step 7. Reformat matrix into data frame format
+gdist_seqs_dm_long <- melt(as.matrix(gdist_seqs), varnames = c("seq_1", "seq_2")) |>
   rename("dist" = "value")
 
-# Step 7. Write genetic distance RData objects
-save(gendist_seqs, file = "genetic_distance_matrix.RData")
-save(gdist_seqs_dm, file = "genetic_distance_matrix_longform.RData")
+# Step 8. Write genetic distance RData objects
+save(gendist_seqs, file = "genetic_distance_matrix_dnabin.RData")
+save(gdist_seqs_dm, file = "genetic_distance_matrix.RData")
+save(gdist_seqs_dm_long, file = "genetic_distance_matrix_longform.RData")
