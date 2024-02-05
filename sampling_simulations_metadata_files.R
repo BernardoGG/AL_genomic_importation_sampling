@@ -7,7 +7,7 @@ library(lubridate)
 library(data.table)
 library(fuzzyjoin)
 
-### Read subsampled sequences and metadata of all simulated cases ####
+#### Read subsampled sequences and metadata of all simulated cases #############
 #meta <- "simulation_seq_intensity_0.1/simulated_epidemic_seqint_0.1_metadata.csv"
 fasta <- "simulation_seq_intensity_0.1/simulated_epidemic_seqint_0.1_sequences.fasta"
 meta_full <- "simulation_seq_intensity_0.1/cleaned_metadata_full_set.txt"
@@ -37,12 +37,7 @@ names(gendist_seqs) <- sub("\\|.*", "", names(gendist_seqs))
 meta_seqs <- meta_all %>% filter(id %in% names(gendist_seqs))
 
 
-### Create data frame for sequence pool to be sampled from
-# (i.e., collection location = international source)
-meta_sampling_pool <- meta_seqs |>
-  filter(collection_location == "intl_source") |>
-  select(-travel_history, -infection_location)
-
+#### Epidemiological trends data frames ########################################
 # Create data frame for new weekly cases at the source
 epiweek_min <- floor_date(meta_all$date, "week") |> min()
 epiweek_max <- floor_date(meta_all$date, "week") |> max()
@@ -54,11 +49,61 @@ source_cases <- meta_all |>
   group_by(epiweek_start) |>
   summarise(new_cases = n()) |>
   full_join(data.frame(epiweek_start = seq(from = epiweek_min, to = epiweek_max,
-                        by = "week")), by = "epiweek_start") |>
+                                           by = "week")), by = "epiweek_start") |>
   as.data.frame() |>
   arrange(epiweek_start) |>
   mutate(epiweek_end = epiweek_start + 6) |>
   mutate(new_cases = ifelse(is.na(new_cases), 0, new_cases))
+
+# Create data frame for new weekly  domestic cases
+domestic_cases <- meta_all |>
+  filter(collection_location == "domestic") |>
+  select(-travel_history, -infection_location) |>
+  mutate(epiweek_start = floor_date(date, "week")) |>
+  group_by(epiweek_start) |>
+  summarise(new_cases = n()) |>
+  full_join(data.frame(epiweek_start = seq(from = epiweek_min, to = epiweek_max,
+                                           by = "week")), by = "epiweek_start") |>
+  as.data.frame() |>
+  arrange(epiweek_start) |>
+  mutate(epiweek_end = epiweek_start + 6) |>
+  mutate(new_cases = ifelse(is.na(new_cases), 0, new_cases))
+
+# Create data frame for number of sequences at the source per epiweek
+source_seqs <- meta_seqs |>
+  filter(collection_location == "intl_source") |>
+  select(-travel_history, -infection_location, -collection_location) |>
+  mutate(epiweek_start = floor_date(date, "week")) |>
+  group_by(epiweek_start) |>
+  summarise(sequences = n()) |>
+  full_join(data.frame(epiweek_start = seq(from = epiweek_min, to = epiweek_max,
+                                           by = "week")), by = "epiweek_start") |>
+  as.data.frame() |>
+  arrange(epiweek_start) |>
+  mutate(epiweek_end = epiweek_start + 6) |>
+  mutate(sequences = ifelse(is.na(sequences), 0, sequences))
+
+# Create data frame for number of domestic sequences per epiweek
+domestic_seqs <- meta_seqs |>
+  filter(collection_location == "domestic") |>
+  select(-travel_history, -infection_location, -collection_location) |>
+  mutate(epiweek_start = floor_date(date, "week")) |>
+  group_by(epiweek_start) |>
+  summarise(sequences = n()) |>
+  full_join(data.frame(epiweek_start = seq(from = epiweek_min, to = epiweek_max,
+                                           by = "week")), by = "epiweek_start") |>
+  as.data.frame() |>
+  arrange(epiweek_start) |>
+  mutate(epiweek_end = epiweek_start + 6) |>
+  mutate(sequences = ifelse(is.na(sequences), 0, sequences))
+
+
+#### Sequence pools data frames ################################################
+### Create data frame for sequence pool to be sampled from
+# (i.e., collection location = international source)
+meta_sampling_pool <- meta_seqs |>
+  filter(collection_location == "intl_source") |>
+  select(-travel_history, -infection_location)
 
 # Add a column to sampling pool data set specifying 'incidence' at collection
 # time; in this case, raw new cases
@@ -75,21 +120,7 @@ meta_sampling_pool$mobility <-
   ifelse(meta_sampling_pool$date <= min(meta_all$date) + 30,
          0, 0.01)
 
-# Create data frame for number of sequences at the source per epiweek
-source_seqs <- meta_seqs |>
-  filter(collection_location == "intl_source") |>
-  select(-travel_history, -infection_location, -collection_location) |>
-  mutate(epiweek_start = floor_date(date, "week")) |>
-  group_by(epiweek_start) |>
-  summarise(sequences = n()) |>
-  full_join(data.frame(epiweek_start = seq(from = epiweek_min, to = epiweek_max,
-                                           by = "week")), by = "epiweek_start") |>
-  as.data.frame() |>
-  arrange(epiweek_start) |>
-  mutate(epiweek_end = epiweek_start + 6) |>
-  mutate(sequences = ifelse(is.na(sequences), 0, sequences))
-
-# Add a column specifying sequencing intensity per day rate
+# Add a column specifying sequencing intensity rate per day
 meta_sampling_pool <- meta_sampling_pool |>
   fuzzy_left_join(source_seqs, by = c("date" = "epiweek_start",
                                        "date" = "epiweek_end"),
@@ -98,19 +129,44 @@ meta_sampling_pool <- meta_sampling_pool |>
   mutate(sequencing_intensity = sequences / new_cases) |>
   select(-sequences)
 
+
 ### Create data frame for domestic sequence pool
 # (i.e., collection location = domestic)
 meta_domestic_pool <- meta_seqs |>
   filter(collection_location == "domestic") |>
   select(-infection_location)
 
-### Save data frames for sampling pool and domestic sequence pool
+# Add a column to domestic pool data set specifying 'incidence' at collection
+# time; in this case, raw new cases
+meta_domestic_pool <- meta_domestic_pool |>
+  fuzzy_left_join(domestic_cases, by = c("date" = "epiweek_start",
+                                       "date" = "epiweek_end"),
+                  match_fun = list(`>=`, `<=`)) |>
+  select(-epiweek_start, -epiweek_end)
+
+# Add a column specifying migration rate as the inverse of the migration rate
+# from the source
+meta_domestic_pool$mobility <-
+  ifelse(meta_domestic_pool$date <= min(meta_all$date) + 30,
+         0, -0.01)
+
+# Add a column specifying sequencing intensity rate per day
+meta_domestic_pool <- meta_domestic_pool |>
+  fuzzy_left_join(domestic_seqs, by = c("date" = "epiweek_start",
+                                      "date" = "epiweek_end"),
+                  match_fun = list(`>=`, `<=`)) |>
+  select(-epiweek_start, -epiweek_end) |>
+  mutate(sequencing_intensity = sequences / new_cases) |>
+  select(-sequences)
+
+
+#### Save data frames for sampling pool and domestic sequence pool #############
 write.csv(meta_sampling_pool, "epidemic_simulation_data/sampling_pool.csv",
           row.names = FALSE, quote = FALSE)
 write.csv(meta_domestic_pool, "epidemic_simulation_data/domestic_pool.csv",
           row.names = FALSE, quote = FALSE)
 
-### Save data frames for epidemic trends at source location
+### Save data frames for epidemic trends
 left_join(source_cases |> select(-epiweek_end),
           source_seqs |> select(-epiweek_end),
           by = "epiweek_start") |>
@@ -118,4 +174,13 @@ left_join(source_cases |> select(-epiweek_end),
   mutate(sequencing_intensity = ifelse(is.na(sequencing_intensity),
                                        0, sequencing_intensity)) |>
   write.csv("epidemic_simulation_data/source_epi_trends.csv",
+            row.names = FALSE, quote = FALSE)
+
+left_join(domestic_cases |> select(-epiweek_end),
+          domestic_seqs |> select(-epiweek_end),
+          by = "epiweek_start") |>
+  mutate(sequencing_intensity = sequences / new_cases) |>
+  mutate(sequencing_intensity = ifelse(is.na(sequencing_intensity),
+                                       0, sequencing_intensity)) |>
+  write.csv("epidemic_simulation_data/domestic_epi_trends.csv",
             row.names = FALSE, quote = FALSE)
