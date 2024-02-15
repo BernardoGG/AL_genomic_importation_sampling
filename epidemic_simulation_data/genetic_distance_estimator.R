@@ -49,6 +49,13 @@ gdist_seqs_dm_long <- melt(as.matrix(gdist_seqs), varnames = c("seq_1", "seq_2")
   rename("dist" = "value")
 
 # Step 8. Write genetic distance RData objects
+# Step 8a. Genetic distance matrix ID list
+gdist_names <- names(gendist_seqs) |> as.data.frame()
+write.table(gdist_names,
+          "epidemic_simulation_data/genetic_distance_matrices/genetic_distance_matrix_names.txt",
+          sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+# Step 8b. Genetic distance matrices
 save(gendist_seqs, file =
        "epidemic_simulation_data/genetic_distance_matrices/genetic_distance_matrix_dnabin.RData")
 save(gdist_seqs_dm, file =
