@@ -28,7 +28,12 @@ Currently, the main folder of the repository contains a data set for a simulated
 
 ```
 AL_genomic_importation_sampling/
+├── active_learning_code
+│   ├── al_model.ipynb
+│   └── al_model_no_genetic_distances.ipynb
 ├── epidemic_simulation_data
+│   ├── genetic_distance_matrices
+│   ├── plots
 │   ├── genetic_distance_estimator.R
 │   └── get_me_distances.sh
 └── README.md
