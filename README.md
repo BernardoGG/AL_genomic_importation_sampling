@@ -7,9 +7,22 @@ Mengyan Zhang<sup>1</sup>, Bernardo Gutierrez<sup>2,3</sup>, Rhys P.D. Inward<su
 3.	Colegio de Ciencias Biologicas y Ambientales, Universidad San Francisco de Quito USFQ, Quito, Ecuador
 4.	Pandemic Sciences Institute, University of Oxford, Oxford, UK
 
+## Project summary
+Phylodynamic estimates of the number and timing of importations of a pathogen into a novel geographical location reauires the analysis of genome sequences collected in the location of interest and a set of sequences from possible source locations for the importation of the pathogen. Given the computational costs of running phylodynamic analyses with large data sets, there is a need for systems to identify a minimum set of 'background' sequences which are sufficient to accurately identify introduction events of the pathogen. By using a simulated epidemic between two geographical locations linked by human mobility (simulating a UK/non-UK scenario), the purpose of the active learning approach presented in this repository is to start with a full data set (which would result in a phylogenetic tree that shows all viral introductions, A), identify the domestic sequences for which we strongly believe that the infection occurred abroad (i.e., genomes from infected patients with a recent travel history outside of the UK, B) and label the international sequences to identify the minimum set of sequences which would result in a phylogenetic tree that shows the same number of introductions as the tree with the full data set (C).
+
+[PICTURE]
+
+In principle, the active learning pipeline would attempt to label non-UK genomes as likely cases of epidemiologically linked sequences with other UK sequences; in practice, this would mean adding a 'travel history' label which we're using as the proxy for the epidemiological link as such:
+
+[PICTURE]
+
+- UK sequences with a travel history are labelled observations.
+- UK sequences without a travel history are data points where the label is unknown.
+- Non-UK sequences provide contextual information but are labelled as they are not part of the pool of sequences chosen to be labelled (i.e., we know these are not part of the UK).
+- All features (i.e., covariates) can be queried to determine which of these are useful in classifying unlabelled sequences.
 
 ## Repository structure and general notes
-The structure of this repository is shown below.  
+The structure of this repository is shown below.
 
 Currently, the main folder of the repository contains a data set for a simulated epidemic in two separate locations, with direct flow of patients from the 'source location' (also called Deme 1) to the location of interest where we are performing the analysis (also called Deme 2). Details about the simulation are available in this [`GitHub repository`](https://github.com/rhysinward/sampling_phylodyanmics/tree/main). 
 
