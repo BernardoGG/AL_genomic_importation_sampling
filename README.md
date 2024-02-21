@@ -10,11 +10,11 @@ Mengyan Zhang<sup>1</sup>, Bernardo Gutierrez<sup>2,3</sup>, Rhys P.D. Inward<su
 ## Project summary
 Phylodynamic estimates of the number and timing of importations of a pathogen into a novel geographical location reauires the analysis of genome sequences collected in the location of interest and a set of sequences from possible source locations for the importation of the pathogen. Given the computational costs of running phylodynamic analyses with large data sets, there is a need for systems to identify a minimum set of 'background' sequences which are sufficient to accurately identify introduction events of the pathogen. By using a simulated epidemic between two geographical locations linked by human mobility (simulating a UK/non-UK scenario), the purpose of the active learning approach presented in this repository is to start with a full data set (which would result in a phylogenetic tree that shows all viral introductions, A), identify the domestic sequences for which we strongly believe that the infection occurred abroad (i.e., genomes from infected patients with a recent travel history outside of the UK, B) and label the international sequences to identify the minimum set of sequences which would result in a phylogenetic tree that shows the same number of introductions as the tree with the full data set (C).
 
-[PICTURE]
+![sampling_data_set_trees_schematic](https://github.com/BernardoGG/AL_genomic_importation_sampling/assets/19906478/6b792bda-cd3f-47f3-9deb-574c4b5c4a49)
 
 In principle, the active learning pipeline would attempt to label non-UK genomes as likely cases of epidemiologically linked sequences with other UK sequences; in practice, this would mean adding a 'travel history' label which we're using as the proxy for the epidemiological link as such:
 
-[PICTURE]
+![target_samples_schematic-01](https://github.com/BernardoGG/AL_genomic_importation_sampling/assets/19906478/8fef3038-a574-4341-b9cb-8460fde41a0a)
 
 - UK sequences with a travel history are labelled observations.
 - UK sequences without a travel history are data points where the label is unknown.
