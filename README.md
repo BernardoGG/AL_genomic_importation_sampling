@@ -1,6 +1,6 @@
 # A heuristic/active learning approach to selecting samples for phylodynamic inference of viral importations
 
-Mengyan Zhang<sup>1</sup>, Bernardo Gutierrez<sup>2,3</sup>, Rhys P.D. Inward<sup>2</sup>, Seth Flaxman<sup>1,†</sup>, Moritz U.G. Kraemer<sup>2,4,†</sup>
+Mengyan Zhang<sup>1</sup>, Bernardo Gutierrez<sup>2,3</sup>, Rhys P.D. Inward<sup>2</sup>, Joseph L.H. Tsui<sup>2</sup>, Seth Flaxman<sup>1,†</sup>, Moritz U.G. Kraemer<sup>2,4,†</sup>
 
 1.	Department of Computer Science, University of Oxford, Oxford, UK
 2.	Department of Biology, University of Oxford, Oxford, UK
