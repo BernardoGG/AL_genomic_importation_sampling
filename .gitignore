@@ -1,0 +1,27 @@
+# Ignore project files with the extension:
+*.Rproj
+epidemic_simulation_data/genetic_distance_matrices/*.RData
+*.Rhistory
+*.fasta
+
+# Ignore system files:
+.gitmodules
+.location.mugration_model.txt
+
+# Ignore thwe following files from the AL_genomic_importation_sampling folder
+init_sequence_aligment.fasta
+active_learning_code/SARS2_CL_phylogeo_summaries.ipynb
+active_learning_code/cont_phylogeog_extract.ipynb
+
+# Ignore all files in the directories:
+phylogenetic_subsampling_to_share/
+sandbox/
+.git/
+.RProj.user/
+active_learning_code/.ipynb_checkpoints/
+active_learning_code/MAPLE/
+AL_sampling_plots/
+
+# Ignore all .DS_Store files (common on macOS)
+.DS_Store
+.Rproj.user*
