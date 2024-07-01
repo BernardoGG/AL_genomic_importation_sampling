@@ -25,3 +25,4 @@ AL_sampling_plots/
 # Ignore all .DS_Store files (common on macOS)
 .DS_Store
 .Rproj.user*
+.Rproj.user
